@@ -1,0 +1,7 @@
+SwiftRAW is an offline Android gallery for reviewing camera RAW files directly from an SD card or USB reader.
+
+Choose a folder through Android's system picker, browse cached thumbnails, open embedded JPEG previews with pinch-to-zoom, and export previews without changing the original files.
+
+Supported formats include Nikon NEF/NRW, Canon CR2/CR3, Sony ARW/SR2/SRF, Fujifilm RAF, Olympus ORF, Panasonic RW2, Pentax PEF, DNG and other common RAW extensions. Standard image formats are also supported.
+
+SwiftRAW does not request network access, include analytics or upload photographs. All processing happens locally on the device.

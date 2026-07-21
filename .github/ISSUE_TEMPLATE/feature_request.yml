@@ -1,0 +1,15 @@
+name: Feature request
+description: Suggest an improvement to SwiftRAW
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Problem or use case
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true

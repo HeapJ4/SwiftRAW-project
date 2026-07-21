@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'app.swiftnef'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'app.swiftnef'
+        minSdk 23
+        targetSdk 35
+        versionCode 202
+        versionName '2.0.2'
+    }
+}

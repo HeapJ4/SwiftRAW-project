@@ -1,0 +1,1 @@
+Browse and export embedded previews from camera RAW files offline

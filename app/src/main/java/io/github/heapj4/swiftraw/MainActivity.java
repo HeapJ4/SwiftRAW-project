@@ -1,4 +1,4 @@
-package app.swiftnef;
+package io.github.heapj4.swiftraw;
 
 import android.app.*;
 import android.content.*;
@@ -40,13 +40,13 @@ public class MainActivity extends Activity {
 
     private void buildUi() {
         LinearLayout root = new LinearLayout(this); root.setOrientation(LinearLayout.VERTICAL); root.setPadding(dp(14),dp(12),dp(14),dp(8)); root.setBackgroundColor(BG);
-        TextView title = text("SwiftRAW", 26, TEXT); title.setTypeface(null, 1); root.addView(title);
-        TextView sub = text("Fast offline RAW gallery", 13, 0xffaaaab5); root.addView(sub);
+        TextView title = text(getString(R.string.app_name), 26, TEXT); title.setTypeface(null, android.graphics.Typeface.BOLD); root.addView(title);
+        TextView sub = text(getString(R.string.tagline), 13, 0xffaaaab5); root.addView(sub);
         LinearLayout actions = new LinearLayout(this); actions.setPadding(0,dp(10),0,dp(8));
-        Button open = button("OPEN SD CARD"); open.setOnClickListener(v -> choose()); actions.addView(open, new LinearLayout.LayoutParams(0,dp(48),1));
-        Button export = button("EXPORT JPGs"); export.setOnClickListener(v -> exportAll()); LinearLayout.LayoutParams ep = new LinearLayout.LayoutParams(0,dp(48),1); ep.leftMargin=dp(8); actions.addView(export,ep);
+        Button open = button(getString(R.string.open_sd_card)); open.setOnClickListener(v -> choose()); actions.addView(open, new LinearLayout.LayoutParams(0,dp(48),1));
+        Button export = button(getString(R.string.export_jpgs)); export.setOnClickListener(v -> exportAll()); LinearLayout.LayoutParams ep = new LinearLayout.LayoutParams(0,dp(48),1); ep.leftMargin=dp(8); actions.addView(export,ep);
         root.addView(actions);
-        status = text("Choose a camera card or folder", 14, 0xffc6c6d0); status.setPadding(0,0,0,dp(8)); root.addView(status);
+        status = text(getString(R.string.choose_folder), 14, 0xffc6c6d0); status.setPadding(0,0,0,dp(8)); root.addView(status);
         grid = new GridView(this); grid.setNumColumns(3); grid.setHorizontalSpacing(dp(5)); grid.setVerticalSpacing(dp(5)); grid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH); grid.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter = new GalleryAdapter(); grid.setAdapter(adapter); grid.setOnItemClickListener((p,v,i,id)->openPhoto(photos.get(i))); root.addView(grid,new LinearLayout.LayoutParams(-1,0,1));
         setContentView(root);
@@ -64,12 +64,12 @@ public class MainActivity extends Activity {
     }
 
     private void scan(Uri tree) {
-        photos.clear(); adapter.notifyDataSetChanged(); status.setText("Searching the SD card…");
+        photos.clear(); adapter.notifyDataSetChanged(); status.setText(R.string.searching);
         workers.execute(() -> {
             ArrayList<Photo> found=new ArrayList<>();
             try { walk(DocumentsContract.buildDocumentUriUsingTree(tree,DocumentsContract.getTreeDocumentId(tree)),found); } catch(Exception ignored) {}
-            found.sort((a,b)->Long.compare(b.modified,a.modified));
-            runOnUiThread(() -> { photos.addAll(found); adapter.notifyDataSetChanged(); status.setText(found.isEmpty()?"No supported photos found":found.size()+" photos • previews cache as you scroll"); });
+            Collections.sort(found, (a,b)->Long.compare(b.modified,a.modified));
+            runOnUiThread(() -> { photos.addAll(found); adapter.notifyDataSetChanged(); status.setText(found.isEmpty()?getString(R.string.no_supported_photos):getResources().getQuantityString(R.plurals.photos_found,found.size(),found.size())); });
         });
     }
 
@@ -116,16 +116,16 @@ public class MainActivity extends Activity {
     private void openPhoto(Photo p) {
         Dialog d=new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen); FrameLayout frame=new FrameLayout(this); frame.setBackgroundColor(Color.BLACK);
         ZoomImage image=new ZoomImage(this); image.setScaleType(ImageView.ScaleType.FIT_CENTER); frame.addView(image,new FrameLayout.LayoutParams(-1,-1));
-        TextView info=text(p.name+"\n"+human(p.size)+" • loading preview…",14,Color.WHITE); info.setBackgroundColor(0xaa000000); info.setPadding(dp(12),dp(8),dp(12),dp(8)); FrameLayout.LayoutParams ip=new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM); frame.addView(info,ip);
-        Button close=button("×"); FrameLayout.LayoutParams cp=new FrameLayout.LayoutParams(dp(52),dp(52),Gravity.TOP|Gravity.END); cp.setMargins(0,dp(12),dp(12),0); frame.addView(close,cp); close.setOnClickListener(v->d.dismiss()); d.setContentView(frame); d.show();
-        workers.execute(() -> { Bitmap b=thumbnail(p,2200); runOnUiThread(() -> { if(b!=null){image.setImageBitmap(b);info.setText(p.name+"\n"+human(p.size)+"\nPinch to zoom • drag to pan");}else info.setText(p.name+"\nNo embedded JPEG preview"); }); });
+        TextView info=text(getString(R.string.loading_preview,p.name,human(p.size)),14,Color.WHITE); info.setBackgroundColor(0xaa000000); info.setPadding(dp(12),dp(8),dp(12),dp(8)); FrameLayout.LayoutParams ip=new FrameLayout.LayoutParams(-1,-2,Gravity.BOTTOM); frame.addView(info,ip);
+        Button close=button(getString(R.string.close)); FrameLayout.LayoutParams cp=new FrameLayout.LayoutParams(dp(52),dp(52),Gravity.TOP|Gravity.END); cp.setMargins(0,dp(12),dp(12),0); frame.addView(close,cp); close.setOnClickListener(v->d.dismiss()); d.setContentView(frame); d.show();
+        workers.execute(() -> { Bitmap b=thumbnail(p,2200); runOnUiThread(() -> { if(b!=null){image.setImageBitmap(b);info.setText(getString(R.string.preview_loaded,p.name,human(p.size)));}else info.setText(getString(R.string.no_embedded_preview,p.name)); }); });
     }
 
     private void exportAll() {
-        if(photos.isEmpty()){toast("No photos to export");return;} status.setText("Exporting JPG previews…");
+        if(photos.isEmpty()){toast(getString(R.string.no_photos_to_export));return;} status.setText(R.string.exporting);
         workers.execute(() -> { File dir=new File(getExternalFilesDir(null),"Converted"); dir.mkdirs(); int count=0;
             for(Photo p:photos) try { byte[] bytes=normal(p.name)?readAll(p.uri):rawJpeg(p.uri); if(bytes==null)continue; String name=p.name.replaceFirst("(?i)\\.[^.]+$","")+".jpg"; try(FileOutputStream o=new FileOutputStream(new File(dir,name))){o.write(bytes);} count++; } catch(Exception ignored){}
-            int done=count; runOnUiThread(()->{status.setText("Exported "+done+" JPGs to Android/data/app.swiftnef/files/Converted");toast("Export complete");}); });
+            int done=count; runOnUiThread(()->{status.setText(getString(R.string.exported,done));toast(getString(R.string.export_complete));}); });
     }
 
     private String key(Photo p){try{MessageDigest d=MessageDigest.getInstance("SHA-1");byte[] h=d.digest((p.uri+":"+p.modified+":"+p.size).getBytes("UTF-8"));StringBuilder s=new StringBuilder();for(byte b:h)s.append(String.format("%02x",b));return s.toString();}catch(Exception e){return String.valueOf(p.uri.hashCode());}}
@@ -146,6 +146,7 @@ public class MainActivity extends Activity {
     static class ZoomImage extends ImageView {
         private final Matrix matrix=new Matrix(); private final ScaleGestureDetector scale; private float x,y;
         ZoomImage(Context c){super(c);setScaleType(ScaleType.MATRIX);scale=new ScaleGestureDetector(c,new ScaleGestureDetector.SimpleOnScaleGestureListener(){public boolean onScale(ScaleGestureDetector d){matrix.postScale(d.getScaleFactor(),d.getScaleFactor(),d.getFocusX(),d.getFocusY());setImageMatrix(matrix);return true;}});}
-        @Override public boolean onTouchEvent(android.view.MotionEvent e){scale.onTouchEvent(e);if(e.getPointerCount()==1){if(e.getAction()==0){x=e.getX();y=e.getY();}else if(e.getAction()==2){matrix.postTranslate(e.getX()-x,e.getY()-y);x=e.getX();y=e.getY();setImageMatrix(matrix);}}return true;}
+        @Override public boolean performClick(){super.performClick();return true;}
+        @Override public boolean onTouchEvent(android.view.MotionEvent e){scale.onTouchEvent(e);if(e.getPointerCount()==1){if(e.getAction()==0){x=e.getX();y=e.getY();}else if(e.getAction()==2){matrix.postTranslate(e.getX()-x,e.getY()-y);x=e.getX();y=e.getY();setImageMatrix(matrix);}else if(e.getAction()==1){performClick();}}return true;}
     }
 }

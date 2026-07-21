@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- The supplied launcher artwork intentionally uses a full-bleed dark square background. -->
+    <issue id="IconLauncherShape" severity="ignore"/>
+</lint>

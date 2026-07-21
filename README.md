@@ -1,5 +1,9 @@
 # SwiftRAW
 
+<p align="center">
+  <img src="readmeimage.png" alt="SwiftRAW app preview" width="800">
+</p>
+
 [![Android CI](https://github.com/HeapJ4/SwiftRAW-Project/actions/workflows/android.yml/badge.svg)](https://github.com/HeapJ4/SwiftRAW-Project/actions/workflows/android.yml)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-blue.svg)](LICENSE)
 [![Android 6.0+](https://img.shields.io/badge/Android-6.0%2B-3DDC84.svg)](https://developer.android.com/about/versions/marshmallow)

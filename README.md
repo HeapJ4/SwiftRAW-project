@@ -14,7 +14,7 @@ SwiftRAW is a private, offline Android gallery for reviewing camera RAW files di
 - Supports common Nikon, Canon, Sony, Fujifilm, Olympus, Panasonic, Pentax and DNG formats
 - Also displays JPEG, PNG, WebP, HEIF, TIFF and BMP files
 - Works without network access or third-party runtime dependencies
-- Caches thumbnails locally for faster browsing
+- Caches thumbnails locally for faster browsing (may take up some space)
 - Exports embedded previews as JPEG files
 
 ## Requirements

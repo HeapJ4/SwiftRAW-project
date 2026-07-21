@@ -45,4 +45,4 @@ jobs:
         if: steps.changes.outputs.source == 'true'
       - name: Build debug APK
         if: steps.changes.outputs.source == 'true'
-        run: ./gradlew --no-daemon assembleDebug
+        run: ./gradlew --no-daemon lint assembleDebug assembleRelease

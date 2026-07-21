@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SwiftRAW</string>
+    <string name="tagline">Fast offline RAW gallery</string>
+    <string name="open_sd_card">Open SD card</string>
+    <string name="export_jpgs">Export JPGs</string>
+    <string name="choose_folder">Choose a camera card or folder</string>
+    <string name="searching">Searching the SD card…</string>
+    <string name="no_supported_photos">No supported photos found</string>
+    <plurals name="photos_found">
+        <item quantity="one">%1$d photo • previews cache as you scroll</item>
+        <item quantity="other">%1$d photos • previews cache as you scroll</item>
+    </plurals>
+    <string name="loading_preview">%1$s\n%2$s • loading preview…</string>
+    <string name="close">×</string>
+    <string name="preview_loaded">%1$s\n%2$s\nPinch to zoom • drag to pan</string>
+    <string name="no_embedded_preview">%1$s\nNo embedded JPEG preview</string>
+    <string name="no_photos_to_export">No photos to export</string>
+    <string name="exporting">Exporting JPG previews…</string>
+    <string name="exported">Exported %1$d JPGs to Android/data/io.github.heapj4.swiftraw/files/Converted</string>
+    <string name="export_complete">Export complete</string>
+</resources>

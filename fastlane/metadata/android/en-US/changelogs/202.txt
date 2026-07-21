@@ -1,0 +1,7 @@
+Initial public source release.
+
+- Browse RAW photographs from SD cards, USB readers, and local folders.
+- Display and cache camera-generated JPEG previews.
+- View images with pinch-to-zoom controls.
+- Export embedded previews without changing the original files.
+- Operate fully offline with no analytics or network permission.

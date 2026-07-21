@@ -13,10 +13,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect application changes
+        id: changes
+        shell: bash
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [[ "${{ github.event_name }}" != "pull_request" ]]; then
+            echo "source=true" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet "origin/$BASE_REF...HEAD" -- . \
+            ':(exclude,glob)**/*.md' \
+            ':(exclude,glob)docs/**'; then
+            echo "source=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "source=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Documentation-only change
+        if: steps.changes.outputs.source == 'false'
+        run: echo "Android build skipped because this pull request changes documentation only."
+
       - uses: actions/setup-java@v4
+        if: steps.changes.outputs.source == 'true'
         with:
           distribution: temurin
           java-version: "17"
       - uses: gradle/actions/setup-gradle@v4
+        if: steps.changes.outputs.source == 'true'
       - name: Build debug APK
+        if: steps.changes.outputs.source == 'true'
         run: ./gradlew --no-daemon assembleDebug

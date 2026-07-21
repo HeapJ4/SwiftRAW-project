@@ -1,13 +1,17 @@
 plugins { id 'com.android.application' }
 
 android {
-    namespace 'io.github.heapj4.swiftraw'
+    namespace 'app.swiftnef'
     compileSdk 35
     defaultConfig {
-        applicationId 'io.github.heapj4.swiftraw'
-        minSdk 23
+        applicationId 'app.swiftnef'
+        minSdk 26
         targetSdk 35
-        versionCode 202
-        versionName '2.0.2'
+        versionCode 24
+        versionName '2.0.3'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }

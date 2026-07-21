@@ -6,7 +6,7 @@
 
 [![Android CI](https://github.com/HeapJ4/SwiftRAW-Project/actions/workflows/android.yml/badge.svg)](https://github.com/HeapJ4/SwiftRAW-Project/actions/workflows/android.yml)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/License-GPL--3.0--or--later-blue.svg)](LICENSE)
-[![Android 6.0+](https://img.shields.io/badge/Android-6.0%2B-3DDC84.svg)](https://developer.android.com/about/versions/marshmallow)
+[![Android 8.0+](https://img.shields.io/badge/Android-8.0%2B-3DDC84.svg)](https://developer.android.com/about/versions/oreo)
 
 SwiftRAW is a private, offline Android gallery for reviewing camera RAW files directly from an SD card or USB reader. It extracts camera-generated JPEG previews, caches thumbnails, supports pinch-to-zoom viewing, and exports previews without modifying the originals.
 
@@ -19,11 +19,12 @@ SwiftRAW is a private, offline Android gallery for reviewing camera RAW files di
 - Also displays JPEG, PNG, WebP, HEIF, TIFF and BMP files
 - Works without network access or third-party runtime dependencies
 - Caches thumbnails locally for faster browsing (may take up some space)
-- Exports embedded previews as JPEG files
+- Includes brand filters, metadata details and a zoom navigator
+- Exports embedded previews as JPEG files without changing the originals
 
 ## Requirements
 
-- Android 6.0 (API 23) or newer
+- Android 8.0 (API 26) or newer
 - Android Studio with JDK 17 and Android SDK 35 for development
 
 ## Build from source

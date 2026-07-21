@@ -1,0 +1,1 @@
+Restores the advanced SwiftRAW gallery from the original app, including onboarding, brand filters, cache progress, metadata details, and improved zoom navigation.

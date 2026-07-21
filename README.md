@@ -38,6 +38,8 @@ On Windows, run `gradlew.bat assembleDebug`. The debug APK is generated under `a
 
 Bug reports and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes. Please keep the application offline-first and avoid adding unnecessary dependencies or permissions.
 
+Planning an F-Droid submission? See the [F-Droid readiness notes](docs/FDROID.md).
+
 ## Privacy
 
 SwiftRAW has no network permission. Scanning and preview extraction happen on-device, and the app reads only the folder explicitly selected by the user.

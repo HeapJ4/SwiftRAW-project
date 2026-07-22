@@ -1,0 +1,25 @@
+Categories:
+  - Graphics
+License: GPL-3.0-or-later
+AuthorName: HeapJ4
+SourceCode: https://github.com/HeapJ4/SwiftRAW-project
+IssueTracker: https://github.com/HeapJ4/SwiftRAW-project/issues
+Changelog: https://github.com/HeapJ4/SwiftRAW-project/releases
+
+AutoName: SwiftRAW
+
+RepoType: git
+Repo: https://github.com/HeapJ4/SwiftRAW-project.git
+
+Builds:
+  - versionName: 2.0.3
+    versionCode: 24
+    commit: v2.0.3
+    subdir: app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v[0-9.]+$
+CurrentVersion: 2.0.3
+CurrentVersionCode: 24
